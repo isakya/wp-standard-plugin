@@ -2,9 +2,10 @@
 /**
  * @package IzumiPlugin
  */
+namespace Inc;
 
-class IzumiPluginDeactivate {
-    public static function deactivate() {
+class Activate {
+    public static function activate() {
         flush_rewrite_rules();
     }
 }

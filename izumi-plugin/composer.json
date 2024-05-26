@@ -1,0 +1,22 @@
+{
+    "name": "forever/izumi-plugin",
+    "description": "Awesome starter plugin example",
+    "type": "project",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Forever\\IzumiPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "isakya",
+            "email": "1016361268@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}

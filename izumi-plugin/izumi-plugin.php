@@ -9,6 +9,15 @@
 if (!defined('ABSPATH')) {
     die;
 }
+
+if(file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
+}
+
+use Inc\Activate;
+use Inc\Deactivate;
+use Inc\Admin\AdminPages;
+
 // 判断类是否存在
 if (!class_exists('IzumiPlugin')) {
     class IzumiPlugin
@@ -65,8 +74,7 @@ if (!class_exists('IzumiPlugin')) {
 
         function activate()
         {
-            require_once plugin_dir_path(__FILE__) . 'inc/izumi-plugin-activate.php';
-            IzumiPluginActivate::activate();
+            Activate::activate();
         }
     }
 
@@ -81,6 +89,5 @@ if (!class_exists('IzumiPlugin')) {
     register_activation_hook(__FILE__, array($izumiPlugin, 'activate'));
 
     // deactivation
-    require_once plugin_dir_path(__FILE__) . 'inc/izumi-plugin-deactivate.php';
-    register_deactivation_hook(__FILE__, array('IzumiPluginDeactivate', 'deactivate'));
+    register_deactivation_hook(__FILE__, array('Deactivate', 'deactivate'));
 }
