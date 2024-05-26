@@ -6,3 +6,6 @@
  * Plugin Name: Izumi Plugin
  */
 
+if(!defined('ABSPATH')){
+    die;
+}
