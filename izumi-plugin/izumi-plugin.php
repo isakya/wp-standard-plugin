@@ -10,14 +10,40 @@ if (!defined('ABSPATH')) {
     die;
 }
 // 判断类是否存在
-if (class_exists('IzumiPlugin')) {
+if (!class_exists('IzumiPlugin')) {
     class IzumiPlugin
     {
+        public $plugin; // 存储插件名称的变量
+
+        function __construct() {
+            $this->plugin = plugin_basename(__FILE__); // 返回当前插件到当前文件的路径 如: "izumi-plugin/izumi-plugin.php"
+        }
 
         function register()
         {
             // add_action('wp_enqueue_scripts', array($this, 'enqueue')); // 把样式文件加载到前台页面
             add_action('admin_enqueue_scripts', array($this, 'enqueue')); // 把样式文件加载到后台页面
+
+            add_action('admin_menu', array($this, 'add_admin_pages')); // 加载后台自定义插件入口按钮
+
+            add_filter("plugin_action_links_$this->plugin", array($this, 'settings_link')); // 注意：plugin_action_links_NAME-OF-MY-PLUGIN
+        }
+
+        public function settings_link($links) {
+            // 在插件列表的当前插件信息当中添加自定义跳转到该插件设置页面的链接
+            $settings_link = '<a href="admin.php?page=izumi_plugin">Settings</a>';
+            array_push($links, $settings_link);
+            return $links;
+        }
+
+        // 注册管理界面的入口按钮
+        public function add_admin_pages() {
+            add_menu_page('Izumi Plugin', 'Izumi', 'manage_options', 'izumi_plugin', array($this, 'admin_index'), 'dashicons-store', 110 );
+        }
+
+        // 定义plugin的设置界面
+        public function admin_index() {
+            require_once plugin_dir_path(__FILE__) . 'templates/admin.php';
         }
 
         protected function create_post_type()
