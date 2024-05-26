@@ -12,7 +12,7 @@ if(!defined('ABSPATH')){
 
 class IzumiPlugin {
     function __construct() {
-        add_action('init', array($this, 'custom_post_type')); // 在wp init时 执行custom_post_type函数
+        $this->create_post_type();
     }
 
     function register() {
@@ -20,6 +20,9 @@ class IzumiPlugin {
         add_action('admin_enqueue_scripts', array($this, 'enqueue')); // 把样式文件加载到后台页面
     }
 
+    protected function create_post_type() {
+        add_action('init', array($this, 'custom_post_type')); // 在wp init时 执行custom_post_type函数
+    }
 
     function activate() {
         $this -> custom_post_type(); // 注册自定义帖子函数还需要放在生命周期的激活函数中，不然有可能会不生成自定义post
