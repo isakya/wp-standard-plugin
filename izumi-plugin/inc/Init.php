@@ -16,7 +16,6 @@ final class Init // 设置为常量，则这个类无法被继承也无法实例
             Pages\Admin::class,
             Base\Enqueue::class,
             Base\SettingsLinks::class
-
         ];
     }
 

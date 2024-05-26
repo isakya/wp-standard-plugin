@@ -5,15 +5,10 @@
 
 namespace Inc\Base;
 
-class SettingsLinks
+use \Inc\Base\BaseController;
+
+class SettingsLinks extends BaseController
 {
-    protected $plugin; // 声明一个变量，用来接收插件名称
-
-    public function __construct()
-    {
-        $this->plugin = PLUGIN;
-    }
-
     public function register()
     {
         add_filter("plugin_action_links_$this->plugin", array($this, 'settings_link')); // 注意：plugin_action_links_NAME-OF-MY-PLUGIN // php双引号会转译变量
