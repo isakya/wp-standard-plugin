@@ -26,6 +26,11 @@ class Admin extends BaseController
         $this->setPages();
         $this->setSubPages();
 
+        $this->setSettings();
+        $this->setSections();
+        $this->setFields();
+
+
         $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
 
@@ -70,5 +75,63 @@ class Admin extends BaseController
                 'callback' => function() {echo '<h1>Widgets Manager</h1>';},
             )
         );
+    }
+
+    public function setSettings() {
+        $args = array(
+            array(
+                'option_group' => 'izumi_options_group',
+                'option_name' => 'text_example',
+                'callback' => array($this->callbacks, 'izumiOptionsGroup')
+            ),
+            array(
+                'option_group' => 'izumi_options_group',
+                'option_name' => 'first_name',
+            )
+        );
+
+        $this->settings->setSettings($args);
+    }
+
+    public function setSections() {
+        $args = array(
+            array(
+                'id' => 'izumi_admin_index',
+                'title' => 'Settings',
+                'callback' => array($this->callbacks, 'izumiAdminSection'),
+                'page' => 'izumi_plugin'
+            )
+        );
+
+        $this->settings->setSections($args);
+    }
+
+    public function setFields() {
+        $args = array(
+            array(
+                'id' => 'text_example',
+                'title' => 'Text Example',
+                'callback' => array($this->callbacks, 'izumiTextExample'),
+                'page' => 'izumi_plugin',
+                'section' => 'izumi_admin_index',
+                'args' => array(
+                    'label_for' => 'text_example',
+                    'class' => 'example-class',
+                )
+            ),
+            array(
+                'id' => 'first_example',
+                'title' => 'First Name',
+                'callback' => array($this->callbacks, 'izumiFirstName'),
+                'page' => 'izumi_plugin',
+                'section' => 'izumi_admin_index',
+                'args' => array(
+                    'label_for' => 'first_name',
+                    'class' => 'example-class',
+                )
+            )
+        );
+
+        $this->settings->setFields($args);
     }
 }
