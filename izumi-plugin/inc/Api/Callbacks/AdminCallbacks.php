@@ -14,13 +14,13 @@ class AdminCallbacks extends BaseController
         return require_once ("$this->plugin_path/templates/admin.php");
     }
 
-    public function izumiOptionsGroup($input) {
-        return $input;
-    }
-
-    public function izumiAdminSection() {
-        echo 'section!';
-    }
+//    public function izumiOptionsGroup($input) {
+//        return $input;
+//    }
+//
+//    public function izumiAdminSection() {
+//        echo 'section!';
+//    }
 
     public function izumiTextExample() {
         $value = esc_attr( get_option( 'text_example' ) ); // 获取自定义选项的数据
